@@ -21,6 +21,17 @@ function Image(item) {
     $('main').append($templateClone);
   };
 
-const photos = $.getJSON('page-1.json', item => {
-    
-})
+Image.readJson = () => {
+    $.get('../data/page-1.json', 'json')
+        .then(data => {
+            data.forEach(item => {
+                Image.all.push(new Image(item));
+            });
+            Image.all.forEach(image => {
+                $('main').append(image.render());
+            });
+        })
+        // .then(Image.populateFilter)
+        // .then(Image.handleFilter);
+};
+  
