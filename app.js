@@ -26,12 +26,52 @@ Image.readJson = () => {
             data.forEach(item => {
                 Image.all.push(new Image(item));
             });
+            console.log(Image.all);
             Image.all.forEach(image => {
                 $('main').append(image.render());
             });
         })
-        // .then(Image.populateFilter)
-        // .then(Image.handleFilter);
+        .then(Image.populateFilter)
+        .then(Image.handleFilter);
 };
 
 Image.readJson();
+
+Image.populateFilter = () => {
+    let filterKeywords = [];
+
+    $('option').not(':first').remove();
+
+    Image.all.forEach(image => {
+        if
+        (!filterKeywords.includes(image.keyword))
+        filterKeywords.push(image.keyword);
+    });
+
+    filterKeywords.sort();
+
+    filterKeywords.forEach(keyword => {
+        let optionTag = `<option value="${keyword}">${keyword}</option>`;
+        $('select').append(optionTag);
+    });
+};
+
+Image.handleFilter = () => {
+    $('select').on('change', function () {
+        let $selected = $(this).val();
+        if ($selected !== 'default') {
+            $('div').hide();
+
+            Image.all.forEach(image => {
+                if ($selected === image.keyword) {
+                    $(`div[class="${selected}"]`).addClass('filtered').fadeIn();
+                }
+            });
+
+            $(`option[value=${selected}]`).fadeIn();
+        } else {
+            $('div').removeClass('filtered').fadeIn();
+            $(`option[value=${selected}]`).fadeIn();
+        }
+    });
+};
