@@ -6,23 +6,22 @@ function Image(item) {
     this.description = item.description;
     this.keyword = item.keyword;
     this.horns = item.horns;
-  }
+}
 
-  Image.all = [];
+Image.all = [];
   
-  Image.prototype.render = function () {
+Image.prototype.render = function () {
     let $templateClone = $('<div></div>');
     $templateClone.html($('#photo-template').html());
     $templateClone.find('h2').text(this.title);
     $templateClone.find('img').attr('src', this.image_url);
-    $templateClone.find('img').attr('alt', this.description);
     $templateClone.find('p').text(this.description);
     $templateClone.attr('class', this.keyword);
     $('main').append($templateClone);
-  };
+};
 
 Image.readJson = () => {
-    $.get('../data/page-1.json', 'json')
+    $.get('page-1.json', 'json')
         .then(data => {
             data.forEach(item => {
                 Image.all.push(new Image(item));
@@ -34,4 +33,5 @@ Image.readJson = () => {
         // .then(Image.populateFilter)
         // .then(Image.handleFilter);
 };
-  
+
+Image.readJson();
