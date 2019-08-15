@@ -1,25 +1,22 @@
 body {
-    font-family: sans-serif;
-    background-color: aliceblue;
-    color: peru;
-    text-align: center;
+   font-family: sans-serif;
+   background-color: aliceblue;
+   color: peru;
+   text-align: center;
 }
-
 img {
-    width: 90%;
-    border: solid lightblue 1px;
+   width: 90%;
+   border: solid lightblue 1px;
 }
-
 footer {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
+   position: fixed;
+   bottom: 0px;
+   left: 0px;
 }
-
 div {
-    padding: 0px;
-    margin: 4%;
-    width: 25%;
-    float: left;
-    box-sizing: border-box;
+   display: flexbox;
+   padding: 0px;
+   width: 200px;
+   float: left;
+   box-sizing: border-box;
 }
