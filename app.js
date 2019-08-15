@@ -23,7 +23,6 @@ Image.readJson = (page) => {
         Image.all = [];
             data.forEach(item => {
                 Image.all.push(new Image(item));
-               
             });
             
             Image.all.forEach(image => {
