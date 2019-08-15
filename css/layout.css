@@ -8,3 +8,13 @@ option {
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
 }
+
+button {
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: 'Amatic SC', cursive;
+    border-radius: 3px;
+    border: solid black 1px;
+    padding: 3px 8px 3px 8px;
+    margin: 10px;
+}
