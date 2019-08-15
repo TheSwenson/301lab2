@@ -4,19 +4,41 @@ body {
    color: peru;
    text-align: center;
 }
+
+h1 {
+   font-size: 3rem;
+}
+
+h2 {
+   font-size: 1.4rem;
+   font-weight: bold;
+}
+
 img {
    width: 90%;
-   border: solid lightblue 1px;
 }
+
 footer {
    position: fixed;
    bottom: 0px;
    left: 0px;
 }
+
 div {
-   display: flexbox;
-   padding: 0px;
-   width: 200px;
-   float: left;
-   box-sizing: border-box;
+   width:400px;
+   margin: 10px;
+   margin-bottom: 30px;
+}
+
+main {
+   display: inline-flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+}
+
+select {
+   margin: 10px;
+   font-size: 1rem;
+   padding: 3px;
 }
