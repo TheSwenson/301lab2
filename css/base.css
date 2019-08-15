@@ -18,6 +18,7 @@ h2 {
 
 p {
    font-size: 1.4rem;
+   padding: 5px;
 }
 
 img {
@@ -25,9 +26,10 @@ img {
 }
 
 footer {
-   position: fixed;
-   bottom: 0px;
-   left: 0px;
+   display: flex;
+   justify-content: center;
+   align-content: flex-end;
+   margin-bottom: 50px;
 }
 
 div {
@@ -50,4 +52,5 @@ select {
    font-family: 'Amatic SC', cursive;
    font-weight: bold;
    letter-spacing: 1px;
+   border-radius: 3px;
 }
