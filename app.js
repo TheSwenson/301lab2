@@ -12,26 +12,24 @@ Image.all = [];
 
 
 Image.prototype.render = function () {
-    let $templateClone = $('<div></div>');
-    $templateClone.html($('#photo-template').html());
-    $templateClone.find('h2').text(this.title);
-    $templateClone.find('img').attr('src', this.image_url);
-    $templateClone.find('p').text(this.description);
-    $templateClone.attr('class', this.keyword);
-    $('main').append($templateClone);
+    Image.prototype.render = function() {
+        let template = Handlebars.compile($('#photo-template').html());
+        return template(this);
+       };
 };
 
-Image.readJson = () => {
-    $.get('page-1.json', 'json')
-        .then(data => {
+Image.readJson = (page) => {
+    $.get(`page-${page}.json`).then(data => {
+        Image.all = [];
             data.forEach(item => {
                 Image.all.push(new Image(item));
-                const context = { title: item.title, image_url: item.image_url, keyword:item.keyword, description: item.description };
-                const template = template(context);
+               
             });
-            console.log(Image.all);
+            
             Image.all.forEach(image => {
                 $('main').append(image.render());
+                // const context = { title: Item.title, image_url: Item.image_url, keyword: Item.keyword, description: Item.description };
+                // const template = template(context);
             });
         })
         .then(Image.populateFilter)
@@ -74,6 +72,16 @@ Image.handleFilter = () => {
     });
 };
 
+let page = 1
+$('#page').click(() => {
+    page = page === 1 ? 2 : 1
+    $('#page').text(`Page ${page === 1 ? 2 : 1}`)
+    $('main').empty()
+    Image.readJson(page);
+})
 
-$(() => Image.readJson());
+
+
+
+$(() => Image.readJson(1));
 $()
