@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 function Image(item) {
     this.image_url = item.image_url;
@@ -35,38 +35,33 @@ Image.readJson = () => {
         .then(Image.handleFilter);
 };
 
-Image.readJson();
-
 Image.populateFilter = () => {
     let filterKeywords = [];
+    console.log(Image.all, Image.all[0], Image.all.length);
 
     $('option').not(':first').remove();
 
-    Image.all.forEach(image => {
-        if
-        (!filterKeywords.includes(image.keyword))
-        filterKeywords.push(image.keyword);
+    Image.all.forEach((image) => {
+        if(!filterKeywords.includes(image.keyword)){
+            filterKeywords.push(image.keyword)
+        }
     });
 
     filterKeywords.sort();
+    console.log(filterKeywords);
 
     filterKeywords.forEach(keyword => {
         let optionTag = `<option value="${keyword}">${keyword}</option>`;
-        $('select').append(optionTag);
+        $('#select').append(optionTag);
     });
 };
 
 Image.handleFilter = () => {
     $('select').on('change', function () {
-        let $selected = $(this).val();
-        if ($selected !== 'default') {
+        let selected = $(this).val();
+        if (selected !== 'default') {
             $('div').hide();
-
-            Image.all.forEach(image => {
-                if ($selected === image.keyword) {
-                    $(`div[class="${selected}"]`).addClass('filtered').fadeIn();
-                }
-            });
+            $(`div[class="${selected}"]`).addClass('filtered').fadeIn();
 
             $(`option[value=${selected}]`).fadeIn();
         } else {
@@ -75,3 +70,7 @@ Image.handleFilter = () => {
         }
     });
 };
+
+
+$(() => Image.readJson());
+$()
