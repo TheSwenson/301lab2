@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/modules.css">
     <link rel="stylesheet" href="css/state.css">
+    <script id="photo-template" type="text/x-handlebars-template">
+      <div class="{{ keyword }}">
+        <h2>{{ title }}</h2>
+        <img src="{{ image_url }}" alt="" />
+        <p>{{ description }}</p>
+      </div>
+    </script>
+​
   </head>
   <body>
     <header>
@@ -16,15 +24,9 @@
       <select id="select">
         <option  value="default">Filter by Keyword</option>
       </select>
+      <button id="page">Page 2</button>
     </header>
     <main>
-        <script id="entry-template" type="text/x-handlebars-template">
-      <section id="photo-template">
-        <h2 id= "title">{{title}}</h2>
-        <img id = "image" src="{{image_url}}" alt="{{keyword}}">
-        <p id = "description">{{description}}</p>
-      </section>
-    </script>
     </main>
     <footer>
       &copy; 2018 Code Fellows
