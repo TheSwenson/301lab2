@@ -17,11 +17,13 @@
       </select>
     </header>
     <main>
+        <script id="entry-template" type="text/x-handlebars-template">
       <section id="photo-template">
-        <h2></h2>
-        <img src="" alt="">
-        <p></p>
+        <h2 id= "title">{{title}}</h2>
+        <img id = "image" src="{{image_url}}" alt="{{keyword}}">
+        <p id = "description">{{description}}</p>
       </section>
+    </script>
     </main>
     <footer>
       &copy; 2018 Code Fellows
@@ -29,5 +31,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="app.js"></script>
+    
   </body>
 </html>

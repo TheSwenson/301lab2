@@ -9,7 +9,8 @@ function Image(item) {
 }
 
 Image.all = [];
-  
+
+
 Image.prototype.render = function () {
     let $templateClone = $('<div></div>');
     $templateClone.html($('#photo-template').html());
@@ -25,6 +26,8 @@ Image.readJson = () => {
         .then(data => {
             data.forEach(item => {
                 Image.all.push(new Image(item));
+                const context = { title: item.title, image_url: item.image_url, keyword:item.keyword, description: item.description };
+                const template = template(context);
             });
             console.log(Image.all);
             Image.all.forEach(image => {
