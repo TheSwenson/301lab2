@@ -27,17 +27,15 @@ Image.readJson = (page) => {
             
             Image.all.forEach(image => {
                 $('main').append(image.render());
-                // const context = { title: Item.title, image_url: Item.image_url, keyword: Item.keyword, description: Item.description };
-                // const template = template(context);
             });
         })
         .then(Image.populateFilter)
-        .then(Image.handleFilter);
+        .then(Image.handleFilter)
+        .then(Image.sortImages);
 };
 
 Image.populateFilter = () => {
     let filterKeywords = [];
-    console.log(Image.all, Image.all[0], Image.all.length);
 
     $('option').not(':first').remove();
 
@@ -61,15 +59,18 @@ Image.handleFilter = () => {
         let selected = $(this).val();
         if (selected !== 'default') {
             $('div').hide();
-            $(`div[class="${selected}"]`).addClass('filtered').fadeIn();
+            $(`div[class="${selected}"]`).show();
 
-            $(`option[value=${selected}]`).fadeIn();
+            $(`option[value=${selected}]`).show();
         } else {
-            $('div').removeClass('filtered').fadeIn();
-            $(`option[value=${selected}]`).fadeIn();
+            $('div').show();
+            $(`option[value=${selected}]`).show();
         }
     });
 };
+// $('#AZ').click(() => {
+//     Image.readJson(page);
+// })
 
 let page = 1
 $('#page').click(() => {
@@ -79,8 +80,4 @@ $('#page').click(() => {
     Image.readJson(page);
 })
 
-
-
-
-$(() => Image.readJson(1));
-$()
+$(() => Image.readJson(page));
