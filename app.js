@@ -31,7 +31,7 @@ Image.readJson = (page) => {
         })
         .then(Image.populateFilter)
         .then(Image.handleFilter)
-        .then(Image.sortImages);
+        .then(Image.sortFilter);
 };
 
 Image.populateFilter = () => {
@@ -46,7 +46,6 @@ Image.populateFilter = () => {
     });
 
     filterKeywords.sort();
-    console.log(filterKeywords);
 
     filterKeywords.forEach(keyword => {
         let optionTag = `<option value="${keyword}">${keyword}</option>`;
@@ -68,9 +67,6 @@ Image.handleFilter = () => {
         }
     });
 };
-// $('#AZ').click(() => {
-//     Image.readJson(page);
-// })
 
 let page = 1
 $('#page').click(() => {
@@ -79,5 +75,30 @@ $('#page').click(() => {
     $('main').empty()
     Image.readJson(page);
 })
+
+Image.sortFilter = () => {
+    $('#sort').click(() => {
+        let sortTitles = [];
+        
+        Image.all.forEach((image) => {
+            if(!sortTitles.includes(image.keyword)){
+                sortTitles.push(image.keyword)
+            }
+        });
+        
+        if($('#sort').html() === 'Sort A-Z'){
+            $('#sort').html('Sort By Horn #')
+            Image.all.sort()
+            $('main').empty()
+            Image.readJson(page);
+        } else if($('#sort').html() === 'Sort By Horn #') {
+            $('#sort').html('No Sort')
+        } else if($('#sort').html() === 'No Sort') {
+            $('#sort').html('Sort A-Z')
+        } else {
+            alert(`Please refresh the page`)
+        }
+        })
+    }
 
 $(() => Image.readJson(page));
