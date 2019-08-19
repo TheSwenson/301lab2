@@ -27,17 +27,15 @@ Image.readJson = (page) => {
             
             Image.all.forEach(image => {
                 $('main').append(image.render());
-                // const context = { title: Item.title, image_url: Item.image_url, keyword: Item.keyword, description: Item.description };
-                // const template = template(context);
             });
         })
         .then(Image.populateFilter)
-        .then(Image.handleFilter);
+        .then(Image.handleFilter)
+        .then(Image.sortFilter);
 };
 
 Image.populateFilter = () => {
     let filterKeywords = [];
-    console.log(Image.all, Image.all[0], Image.all.length);
 
     $('option').not(':first').remove();
 
@@ -48,7 +46,6 @@ Image.populateFilter = () => {
     });
 
     filterKeywords.sort();
-    console.log(filterKeywords);
 
     filterKeywords.forEach(keyword => {
         let optionTag = `<option value="${keyword}">${keyword}</option>`;
@@ -61,12 +58,12 @@ Image.handleFilter = () => {
         let selected = $(this).val();
         if (selected !== 'default') {
             $('div').hide();
-            $(`div[class="${selected}"]`).addClass('filtered').fadeIn();
+            $(`div[class="${selected}"]`).show();
 
-            $(`option[value=${selected}]`).fadeIn();
+            $(`option[value=${selected}]`).show();
         } else {
-            $('div').removeClass('filtered').fadeIn();
-            $(`option[value=${selected}]`).fadeIn();
+            $('div').show();
+            $(`option[value=${selected}]`).show();
         }
     });
 };
@@ -79,8 +76,29 @@ $('#page').click(() => {
     Image.readJson(page);
 })
 
+Image.sortFilter = () => {
+    $('#sort').click(() => {
+        let sortTitles = [];
+        
+        Image.all.forEach((image) => {
+            if(!sortTitles.includes(image.keyword)){
+                sortTitles.push(image.keyword)
+            }
+        });
+        
+        if($('#sort').html() === 'Sort A-Z'){
+            $('#sort').html('Sort By Horn #')
+            Image.all.sort()
+            $('main').empty()
+            Image.readJson(page);
+        } else if($('#sort').html() === 'Sort By Horn #') {
+            $('#sort').html('No Sort')
+        } else if($('#sort').html() === 'No Sort') {
+            $('#sort').html('Sort A-Z')
+        } else {
+            alert(`Please refresh the page`)
+        }
+        })
+    }
 
-
-
-$(() => Image.readJson(1));
-$()
+$(() => Image.readJson(page));
