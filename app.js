@@ -30,8 +30,7 @@ Image.readJson = (page) => {
             });
         })
         .then(Image.populateFilter)
-        .then(Image.handleFilter)
-        .then(Image.sortFilter);
+        .then(Image.handleFilter);
 };
 
 Image.populateFilter = () => {
@@ -72,33 +71,40 @@ let page = 1
 $('#page').click(() => {
     page = page === 1 ? 2 : 1
     $('#page').text(`Page ${page === 1 ? 2 : 1}`)
+    $('#sort').html('Sort A-Z')
     $('main').empty()
     Image.readJson(page);
 })
 
-Image.sortFilter = () => {
-    $('#sort').click(() => {
-        let sortTitles = [];
+$('#sort').click(() => {
+    
+    if($('#sort').html() === 'Sort A-Z'){
+        $('main').empty()
+        $('#sort').html('Sort By Horn #')
         
-        Image.all.forEach((image) => {
-            if(!sortTitles.includes(image.keyword)){
-                sortTitles.push(image.keyword)
-            }
+        Image.all.sort(function(a, b){
+            if(a.title < b.title) {return -1}
+            if(a.title > b.title) {return 1}
+            return 0;
+            })
+        Image.all.forEach(image => {
+            $('main').append(image.render());
         });
+    } else if($('#sort').html() === 'Sort By Horn #') {
+        $('main').empty();
+        $('#sort').html('Sort A-Z');
         
-        if($('#sort').html() === 'Sort A-Z'){
-            $('#sort').html('Sort By Horn #')
-            Image.all.sort()
-            $('main').empty()
-            Image.readJson(page);
-        } else if($('#sort').html() === 'Sort By Horn #') {
-            $('#sort').html('No Sort')
-        } else if($('#sort').html() === 'No Sort') {
-            $('#sort').html('Sort A-Z')
-        } else {
-            alert(`Please refresh the page`)
-        }
+        Image.all.sort(function(a, b){
+            if(a.horns < b.horns) {return -1}
+            if(a.horns > b.horns) {return 1}
+            return 0;
         })
+        Image.all.forEach(image => {
+            $('main').append(image.render());
+        });
+    } else {
+        alert(`Please refresh the page`)
     }
+})
 
 $(() => Image.readJson(page));
